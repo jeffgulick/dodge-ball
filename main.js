@@ -112,30 +112,37 @@ const arrOfPeople = [
     }
     //adds players to player list
     addPlayerList(){
-        listOfPlayers.push(this)
+        listOfPlayers.push(this);
     }
   }
+
+  //class for blue team extends construct and methods from player
   class blueTeammate extends player{
     constructor(color, mascot, id, name, age, skillSet, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience, placeBorn ){
         super(id, name, age, skillSet, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience, placeBorn);
-        this.color = color;
-        this.mascot = mascot;
+        this.color = 'Blue';
+        this.mascot = 'The Blues Clues';
     }
   }
+
+  //class for red team extencs construct and methods from player class
   class redTeammate extends player{
     constructor(color, mascot, id, name, age, skillSet, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience, placeBorn){
         super(id, name, age, skillSet, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience, placeBorn)
-        this.color = color;
-        this.mascot = mascot;
+        this.color = 'Red';
+        this.mascot = 'Red Dogs';
     }
   }
+
   //creates list of people and gets things going
   const listPeopleChoices = () => {
     let listElement = document.getElementById('people')
+
     arrOfPeople.map(person => {
       let li = document.createElement("li")
       let button = document.createElement("button")
       button.innerHTML = "Make Player";
+
         //calls the make player function and removes list element from dom
       button.addEventListener('click', function() {
           makePlayer(person.id);
@@ -175,23 +182,106 @@ const arrOfPeople = [
     createPlayer.addPlayerList(createPlayer);
     //adding new object to the dom
     let playerElement = document.getElementById('players');
-    let poolList = document.createElement('li');
+    let li = document.createElement('li');
+
     //buttons
     let blueButton = document.createElement('button');
     let redButton = document.createElement('button');
     blueButton.innerHTML = "Blue";
     redButton.innerHTML = "Red";
-    poolList.appendChild(blueButton);
-    poolList.appendChild(redButton);
+    li.appendChild(blueButton);
+    li.appendChild(redButton);
+    
     //adding text and finishing up the addition
-    poolList.appendChild(document.createTextNode(createPlayer.name + " - " + createPlayer.skillSet));
-    playerElement.appendChild(poolList);
+    li.appendChild(document.createTextNode(`${createPlayer.name} // Can Throw: ${createPlayer.canThrowBall} // Can Dodge: ${createPlayer.canDodgeBall} // Healthy: ${createPlayer.isHealthy}`));
+
+    playerElement.appendChild(li);
+
+    //calls function that creates blueteam
+    blueButton.addEventListener('click', function(){
+      li.remove();
+      makeBlue(createPlayer.id);
+    })
+
+    //calls function that creates redteam
+    redButton.addEventListener('click', function(){
+      li.remove();
+      makeRed(createPlayer.id);
+    })
+
   }
 
-  const makeBlue = () => {
+  const makeBlue = (id) => {
+    //locating players by id number and removing from listOfPlayers array
+    let locatePlayer = listOfPlayers.find((people, index) => {
+      if(people.id == id){
+          listOfPlayers.splice(index, 1);
+      }
+      return people.id == id;
+  })
+  //creating new blue team object
+    let bluePlayer = new blueTeammate(
+      locatePlayer.mascot,
+      locatePlayer.color,
+      locatePlayer.id,
+      locatePlayer.name,
+      locatePlayer.age,
+      locatePlayer.skillSet,
+      locatePlayer.canThrowBall,
+      locatePlayer.canDodgeBall,
+      locatePlayer.hasPaid,
+      locatePlayer.isHealthy,
+      locatePlayer.yearsExperience,
+      locatePlayer.placeBorn
+    )
+
+    //using extended method to add player to blue team array
+    bluePlayer.addToBlue(bluePlayer);
+    console.log(listOfPlayers);//making sure array empties
+    console.log(blueTeam);//making sure array fills
+
+    //add blue players to blue team in dom
+    let blueSquad = document.getElementById('blue');
+    let li = document.createElement('li');
+    li.appendChild(document.createTextNode(`${bluePlayer.name} - ${bluePlayer.color} - ${bluePlayer.mascot}`));
+    blueSquad.appendChild(li);
 
   }
 
-  const makeRed = () => {
-      
+  const makeRed = (id) => {
+    let locatePlayer = listOfPlayers.find((people, index) => {
+      if(people.id == id){
+          listOfPlayers.splice(index, 1);
+      }
+      return people.id == id;
+  })
+
+  //creating new red team object
+    let redPlayer = new redTeammate(
+      locatePlayer.mascot,
+      locatePlayer.color,
+      locatePlayer.id,
+      locatePlayer.name,
+      locatePlayer.age,
+      locatePlayer.skillSet,
+      locatePlayer.canThrowBall,
+      locatePlayer.canDodgeBall,
+      locatePlayer.hasPaid,
+      locatePlayer.isHealthy,
+      locatePlayer.yearsExperience,
+      locatePlayer.placeBorn
+    )
+
+    //using extended method to add player to red team array
+    redPlayer.addToRed(redPlayer);
+    console.log(listOfPlayers);//making sure array empties
+    console.log(redTeam);//making sure array fills
+
+    let redSquad = document.getElementById('red');
+    let li = document.createElement('li');
+
+    li.appendChild(document.createTextNode(`${redPlayer.name} - ${redPlayer.color} - ${redPlayer.mascot}`));
+    redSquad.appendChild(li);
+
+
 }
