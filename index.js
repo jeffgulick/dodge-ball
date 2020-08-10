@@ -164,7 +164,6 @@ const arrOfPeople = [
         return people.id == id;
     })
     
-    console.log(arrOfPeople)
     //creating a new object using player class
     let createPlayer = new player(
         locatePlayer.id,
@@ -243,6 +242,25 @@ const arrOfPeople = [
     //add blue players to blue team in dom
     let blueSquad = document.getElementById('blue');
     let li = document.createElement('li');
+
+    let button = document.createElement('button');
+    button.innerHTML = 'Remove from Team';
+    li.appendChild(button);
+
+    //removes player from team and moves to arrOFPeople
+    button.addEventListener('click', function() {
+      li.remove();
+      arrOfPeople.push(bluePlayer);
+
+      let id = bluePlayer.id;
+      //removes from array
+      redTeam.find((element, index) => {
+        if(element.id == id){
+            blueTeam.splice(index, 1);
+        };
+    })
+    })
+
     li.appendChild(document.createTextNode(`${bluePlayer.name} - ${bluePlayer.color} - ${bluePlayer.mascot}`));
     blueSquad.appendChild(li);
 
@@ -279,6 +297,24 @@ const arrOfPeople = [
 
     let redSquad = document.getElementById('red');
     let li = document.createElement('li');
+
+    let button = document.createElement('button');
+    button.innerHTML = 'Remove from Team';
+    li.appendChild(button);
+
+     //removes player from team and moves to arrOFPeople
+    button.addEventListener('click', function() {
+      li.remove();
+      arrOfPeople.push(redPlayer);
+
+      let id = redPlayer.id;
+
+      redTeam.find((element, index) => {
+        if(element.id == id){
+            redTeam.splice(index, 1);
+        };
+    })
+    })
 
     li.appendChild(document.createTextNode(`${redPlayer.name} - ${redPlayer.color} - ${redPlayer.mascot}`));
     redSquad.appendChild(li);
