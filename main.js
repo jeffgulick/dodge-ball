@@ -140,8 +140,6 @@ const arrOfPeople = [
   if (typeof describe === 'function'){
     describe('player', function(){
       it('should have a name, a job, a skillSet', function(){
-        // this creates a CrewMember and passes the following arguments into its constructor:
-        // 'Rick Martinez', 'pilot', 'chemistry'
         const player1 = new player('22', 'jeff', '35', 'skilled', 'true', 'false', 'true', 'true', '5', 'brazil');
         assert.equal(player1.id, '22');
         assert.equal(player1.name, 'jeff');
@@ -156,8 +154,6 @@ const arrOfPeople = [
       });
 
       it('should have a color and mascot', function(){
-        // this creates a CrewMember and passes the following arguments into its constructor:
-        // 'Rick Martinez', 'pilot', 'chemistry'
         const player1 = new blueTeammate('Blue', 'The Blues Clues', '22', 'jeff', '35', 'skilled', 'true', 'false', 'true', 'true', '5', 'brazil');
         assert.equal(player1.color, 'Blue');
         assert.equal(player1.mascot, 'The Blues Clues');
@@ -172,6 +168,23 @@ const arrOfPeople = [
         assert.equal(player1.yearsExperience, 5);
         assert.equal(player1.placeBorn, 'brazil');
       });
+
+      it('should extend player class', function(){
+        const player1 = new redTeammate('Red', 'Red Dogs', '22', 'jeff', '35', 'skilled', 'true', 'false', 'true', 'true', '5', 'brazil');
+        assert.equal(player1.color, 'Red');
+        assert.equal(player1.mascot, 'Red Dogs');
+        assert.equal(player1.id, '22');
+        assert.equal(player1.name, 'jeff');
+        assert.equal(player1.age, '35');
+        assert.equal(player1.skillSet, 'skilled');
+        assert.equal(player1.canThrowBall, 'true');
+        assert.equal(player1.canDodgeBall, 'false');
+        assert.equal(player1.hasPaid, 'true');
+        assert.equal(player1.isHealthy, 'true');
+        assert.equal(player1.yearsExperience, 5);
+        assert.equal(player1.placeBorn, 'brazil');
+      });
+
 
     });
   }
